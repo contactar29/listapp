@@ -1,0 +1,28 @@
+<div>
+  <h1>Make List</h1>  
+  <div class="creatList">
+    <button (click)="onAddList()">Add List</button>
+  </div>
+  <div class="table">
+    <div class="listBox" cdkDropList *ngFor="let list of listArr; let i = index;" (cdkDropListDropped)="drop($event,i)">
+      <div class="table">
+        <h2 class="listTitle" (click)="openTitleDialog(i)">{{list.title}}</h2>
+        <span class="icon">
+          <mat-icon (click)="onDelList(i)" title="Delete List" aria-hidden="false" aria-label="delete icon">delete</mat-icon>
+        </span>
+      </div>
+      <div class="cardBox"  *ngFor="let item of list.items; let j=index"  cdkDrag>
+        <p (click)="openDialog(i,j)">{{item}}
+          <span class="icon">
+            <mat-icon (click)="onDelItem(i,j)" title="Delete Items" aria-hidden="false" aria-label="delete icon">delete</mat-icon>
+          </span>
+        </p>
+      </div>
+      <div class="addItem">
+        <input (keyup)="onAddKey($event, list)" type="text" placeholder="Add Item" [(ngModel)]="list.currentItem"/>
+        <button (click)="onAdd(list)">Add</button>
+      </div>
+    </div>    
+  </div>
+</div>
+<router-outlet></router-outlet>
